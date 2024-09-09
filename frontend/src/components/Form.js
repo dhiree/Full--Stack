@@ -5,7 +5,7 @@ const Form = () => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
-        message: '' // Add message field to formData
+        message: ''
     });
 
     const [submissionMessage, setSubmissionMessage] = useState('');
@@ -21,7 +21,7 @@ const Form = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        axios.post('http://localhost:5000/submit', formData)
+        axios.post('https://backend-15ume7gwi-dheeerendra-singhs-projects.vercel.app/submit', formData)
             .then((response) => {
                 setSubmissionMessage('Form submitted successfully!');
                 setFormData({ name: '', email: '', message: '' });
