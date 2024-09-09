@@ -5,9 +5,10 @@ const Form = () => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
+        message: '' // Add message field to formData
     });
 
-    const [message, setMessage] = useState('');
+    const [submissionMessage, setSubmissionMessage] = useState('');
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -22,19 +23,20 @@ const Form = () => {
 
         axios.post('http://localhost:5000/submit', formData)
             .then((response) => {
-                setMessage('Form submitted successfully!');
+                setSubmissionMessage('Form submitted successfully!');
+                setFormData({ name: '', email: '', message: '' });
             })
             .catch((error) => {
-                setMessage('Error submitting form. Please try again.');
+                setSubmissionMessage('Error submitting form. Please try again.');
                 console.error('There was an error!', error);
             });
     };
 
     return (
         <div className="form-container">
-            <h1>Form Submission</h1>
+            <h1>Contact Us</h1>
             <form onSubmit={handleSubmit}>
-                <div>
+                <div className="form-group">
                     <label htmlFor="name">Name:</label>
                     <input
                         type="text"
@@ -45,7 +47,7 @@ const Form = () => {
                         required
                     />
                 </div>
-                <div>
+                <div className="form-group">
                     <label htmlFor="email">Email:</label>
                     <input
                         type="email"
@@ -56,15 +58,21 @@ const Form = () => {
                         required
                     />
                 </div>
-
+                <div className="form-group">
+                    <label htmlFor="message">Message:</label>
+                    <textarea
+                        id="message"
+                        name="message"
+                        value={formData.message}
+                        onChange={handleChange}
+                        rows="5"
+                    />
+                </div>
                 <button type="submit">Submit</button>
             </form>
-            {message && <p>{message}</p>}
+            {submissionMessage && <p className="submission-message">{submissionMessage}</p>}
         </div>
     );
 };
 
 export default Form;
-
-
-

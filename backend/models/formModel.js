@@ -9,7 +9,10 @@ const formDataSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-
+    message: {
+        type: String,
+        required: false
+    },
 }, { timestamps: true });
 
 export default mongoose.model('FormData', formDataSchema);
